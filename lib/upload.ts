@@ -9,7 +9,7 @@ export const fileToBase64 = (file: File): Promise<string> => {
 }
 
 // Upload image to Supabase Storage
-export const uploadImage = async (file: File, bucket: string = 'images'): Promise<string> => {
+export const uploadImage = async (file: File): Promise<string> => {
   try {
     // For now, we'll convert to base64 and store it directly
     // In production, you'd want to use Supabase Storage

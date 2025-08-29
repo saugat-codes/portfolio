@@ -16,16 +16,16 @@ export function AdminGuard({ children }: AdminGuardProps) {
   const router = useRouter()
   const pathname = usePathname()
 
+  useEffect(() => {
+    if (pathname !== "/admin/login" && !loading && (!user || user.role !== "admin")) {
+      router.push("/admin/login")
+    }
+  }, [user, loading, router, pathname])
+
   // Don't guard the login page
   if (pathname === "/admin/login") {
     return <>{children}</>
   }
-
-  useEffect(() => {
-    if (!loading && (!user || user.role !== "admin")) {
-      router.push("/admin/login")
-    }
-  }, [user, loading, router])
 
   if (loading) {
     return (

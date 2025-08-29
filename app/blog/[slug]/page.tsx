@@ -1,18 +1,11 @@
-import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, Calendar, Clock, User, Share2 } from "lucide-react"
+import { ArrowLeft, Calendar, Clock, Share2 } from "lucide-react"
 import { notFound } from "next/navigation"
 import { blogService } from "@/lib/services"
 import type { BlogPost } from "@/lib/types"
 import Link from "next/link"
 import Navigation from "@/components/navigation"
-
-interface BlogPostPageProps {
-  params: {
-    slug: string
-  }
-}
 
 async function getBlogPost(slug: string): Promise<BlogPost | null> {
   try {
@@ -33,7 +26,7 @@ async function getRelatedPosts(currentPostId: string): Promise<BlogPost[]> {
   }
 }
 
-export default async function BlogPostPage({ params }: BlogPostPageProps) {
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const post = await getBlogPost(slug)
   

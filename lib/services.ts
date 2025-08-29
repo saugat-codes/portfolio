@@ -2,19 +2,19 @@ import { supabase } from './supabase'
 import type { Project, BlogPost } from './types'
 
 // Helper function to convert database row to Project type
-function dbProjectToProject(dbProject: any): Project {
+function dbProjectToProject(dbProject: Record<string, unknown>): Project {
   return {
-    id: dbProject.id,
-    title: dbProject.title,
-    description: dbProject.description,
-    longDescription: dbProject.long_description,
-    image: dbProject.image,
-    technologies: dbProject.technologies,
-    demoUrl: dbProject.demo_url,
-    githubUrl: dbProject.github_url,
-    featured: dbProject.featured,
-    createdAt: dbProject.created_at,
-    updatedAt: dbProject.updated_at,
+    id: dbProject.id as string,
+    title: dbProject.title as string,
+    description: dbProject.description as string,
+    longDescription: dbProject.long_description as string,
+    image: dbProject.image as string,
+    technologies: dbProject.technologies as string[],
+    demoUrl: dbProject.demo_url as string | undefined,
+    githubUrl: dbProject.github_url as string | undefined,
+    featured: dbProject.featured as boolean,
+    createdAt: dbProject.created_at as string,
+    updatedAt: dbProject.updated_at as string,
   }
 }
 
@@ -35,20 +35,20 @@ function projectToDbProject(project: Partial<Project>) {
 }
 
 // Helper function to convert database row to BlogPost type
-function dbBlogPostToBlogPost(dbPost: any): BlogPost {
+function dbBlogPostToBlogPost(dbPost: Record<string, unknown>): BlogPost {
   return {
-    id: dbPost.id,
-    title: dbPost.title,
-    excerpt: dbPost.excerpt,
-    content: dbPost.content,
-    image: dbPost.image,
-    tags: dbPost.tags,
-    slug: dbPost.slug,
-    featured: dbPost.featured,
-    publishedAt: dbPost.published_at,
-    createdAt: dbPost.created_at,
-    updatedAt: dbPost.updated_at,
-    readTime: dbPost.read_time,
+    id: dbPost.id as string,
+    title: dbPost.title as string,
+    excerpt: dbPost.excerpt as string,
+    content: dbPost.content as string,
+    image: dbPost.image as string,
+    tags: dbPost.tags as string[],
+    slug: dbPost.slug as string,
+    featured: dbPost.featured as boolean,
+    publishedAt: dbPost.published_at as string,
+    createdAt: dbPost.created_at as string,
+    updatedAt: dbPost.updated_at as string,
+    readTime: dbPost.read_time as number,
   }
 }
 

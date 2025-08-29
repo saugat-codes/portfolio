@@ -6,13 +6,13 @@ interface CacheItem<T> {
 }
 
 class ClientCache {
-  private cache = new Map<string, CacheItem<any>>()
+  private cache = new Map<string, CacheItem<unknown>>()
   private defaultTTL = 5 * 60 * 1000 // 5 minutes in milliseconds
 
-  set<T>(key: string, data: T, ttl: number = this.defaultTTL): void {
+  set<T>(key: string, value: T, ttl: number = this.defaultTTL): void {
     const now = Date.now()
     const cacheItem: CacheItem<T> = {
-      data,
+      data: value,
       timestamp: now,
       expiresAt: now + ttl,
     }

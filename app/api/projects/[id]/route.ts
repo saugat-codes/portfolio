@@ -57,7 +57,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
     const updates = await request.json()
     
     // Check if project exists
-    const { data: existingProject, error: fetchError } = await supabaseAdmin
+    const { error: fetchError } = await supabaseAdmin
       .from('projects')
       .select('*')
       .eq('id', id)
@@ -71,7 +71,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
     }
 
     // Transform updates to database format
-    const dbUpdates: any = {
+    const dbUpdates: Record<string, string | number | boolean | string[] | null> = {
       updated_at: new Date().toISOString()
     }
     
@@ -119,7 +119,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
   try {
     const { id } = await params
     // Check if project exists
-    const { data: existingProject, error: fetchError } = await supabaseAdmin
+    const { error: fetchError } = await supabaseAdmin
       .from('projects')
       .select('*')
       .eq('id', id)

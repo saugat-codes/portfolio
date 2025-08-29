@@ -30,7 +30,7 @@ export default function ContactForm() {
         // Fallback to mailto
         window.location.href = mailtoLink
       }
-    } catch (error) {
+    } catch {
       // Fallback to mailto if any error occurs
       window.location.href = mailtoLink
     }

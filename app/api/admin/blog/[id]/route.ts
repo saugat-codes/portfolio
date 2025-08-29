@@ -65,7 +65,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
     const updates = await request.json()
     
     // Check if post exists
-    const { data: existingPost, error: fetchError } = await supabaseAdmin
+    const { error: fetchError } = await supabaseAdmin
       .from('blog_posts')
       .select('*')
       .eq('id', id)
@@ -79,7 +79,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
     }
 
     // Transform updates to database format
-    const dbUpdates: any = {
+    const dbUpdates: Record<string, string | number | boolean | string[] | null> = {
       updated_at: new Date().toISOString()
     }
     
@@ -131,7 +131,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
   try {
     const { id } = await params
     // Check if post exists
-    const { data: existingPost, error: fetchError } = await supabaseAdmin
+    const { error: fetchError } = await supabaseAdmin
       .from('blog_posts')
       .select('*')
       .eq('id', id)

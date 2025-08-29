@@ -49,7 +49,7 @@ export default async function ProjectsPage() {
             My Projects
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            A collection of projects I've built, showcasing various technologies and approaches to solving real-world problems.
+            A collection of projects I&apos;ve built, showcasing various technologies and approaches to solving real-world problems.
           </p>
         </div>
       </section>

@@ -1,7 +1,5 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
 import { Github, Linkedin, Mail, Instagram, ExternalLink, Code, Database, Globe, Smartphone } from "lucide-react"
 import Spline from "@splinetool/react-spline/next"
@@ -10,6 +8,7 @@ import ContactForm from "@/components/contact-form"
 import EmptyState from "@/components/empty-state"
 import { projectService, blogService } from "@/lib/services"
 import type { Project, BlogPost } from "@/lib/types"
+import Link from "next/link"
 
 async function getFeaturedProjects(): Promise<Project[]> {
   try {
@@ -149,7 +148,7 @@ export default async function Portfolio() {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredProjects.length > 0 ? (
-              featuredProjects.map((project, index) => (
+              featuredProjects.map((project) => (
                 <Card key={project.id} className="border-glow-hover bg-card group cursor-pointer">
                   <div className="relative overflow-hidden rounded-t-lg">
                     <img
@@ -230,7 +229,7 @@ export default async function Portfolio() {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {latestPosts.length > 0 ? (
-              latestPosts.map((post, index) => (
+              latestPosts.map((post) => (
                 <Card key={post.id} className="border-glow-hover bg-card group cursor-pointer">
                   <CardHeader>
                     <div className="flex justify-between items-start mb-2">
@@ -273,7 +272,7 @@ export default async function Portfolio() {
             )}
           </div>
           <div className="text-center mt-12">
-            <a href="/blog">
+            <Link href="/blog">
               <Button
                 variant="outline"
                 size="lg"
@@ -281,7 +280,7 @@ export default async function Portfolio() {
               >
                 See More Blogs
               </Button>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -295,11 +294,11 @@ export default async function Portfolio() {
           <div className="grid lg:grid-cols-2 gap-12">
             <div className="space-y-6">
               <h3 className="text-2xl font-[family-name:var(--font-orbitron)] text-accent">
-                Let's Build Something Amazing
+                Let&apos;s Build Something Amazing
               </h3>
               <p className="text-muted-foreground text-pretty">
-                I'm always interested in new opportunities and exciting projects. Whether you have a question or just
-                want to say hi, I'll try my best to get back to you!
+                I&apos;m always interested in new opportunities and exciting projects. Whether you have a question or just
+                want to say hi, I&apos;ll try my best to get back to you!
               </p>
               <div className="flex space-x-4">
                 {[

@@ -1,4 +1,4 @@
-"use client"
+"use client"// import { BlogPost } from '@/lib/types'
 
 import { useState, useEffect } from "react"
 import { useRouter, useParams } from "next/navigation"
@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
 import { ArrowLeft, Save, Plus, X } from "lucide-react"
 import RichTextEditor from "@/components/rich-text-editor"
-import type { BlogPost } from "@/lib/types"
+// import type { BlogPost } from "@/lib/types"
 import ImageUpload from "@/components/image-upload"
 import Link from "next/link"
 
