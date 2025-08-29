@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server"
 import { blogService } from "@/lib/services"
 
-export async function GET(request: Request, { params }: { params: { slug: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ slug: string }> }) {
   try {
-    const post = await blogService.getBySlug(params.slug)
+    const { slug } = await params
+    const post = await blogService.getBySlug(slug)
     if (!post) {
       return NextResponse.json({ error: "Blog post not found" }, { status: 404 })
     }
@@ -14,12 +15,13 @@ export async function GET(request: Request, { params }: { params: { slug: string
   }
 }
 
-export async function PUT(request: Request, { params }: { params: { slug: string } }) {
+export async function PUT(request: Request, { params }: { params: Promise<{ slug: string }> }) {
   try {
+    const { slug } = await params
     const updates = await request.json()
     
     // First get the post by slug to get its ID
-    const existingPost = await blogService.getBySlug(params.slug)
+    const existingPost = await blogService.getBySlug(slug)
     if (!existingPost) {
       return NextResponse.json({ error: "Blog post not found" }, { status: 404 })
     }
@@ -32,10 +34,11 @@ export async function PUT(request: Request, { params }: { params: { slug: string
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { slug: string } }) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ slug: string }> }) {
   try {
+    const { slug } = await params
     // First get the post by slug to get its ID
-    const existingPost = await blogService.getBySlug(params.slug)
+    const existingPost = await blogService.getBySlug(slug)
     if (!existingPost) {
       return NextResponse.json({ error: "Blog post not found" }, { status: 404 })
     }

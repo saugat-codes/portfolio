@@ -20,12 +20,13 @@ function calculateReadTime(content: string): number {
   return Math.ceil(words / wordsPerMinute)
 }
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params
     const { data, error } = await supabaseAdmin
       .from('blog_posts')
       .select('*')
-      .eq('id', params.id)
+      .eq('id', id)
       .single()
 
     if (error) {
@@ -58,15 +59,16 @@ export async function GET(request: Request, { params }: { params: { id: string }
   }
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params
     const updates = await request.json()
     
     // Check if post exists
     const { data: existingPost, error: fetchError } = await supabaseAdmin
       .from('blog_posts')
       .select('*')
-      .eq('id', params.id)
+      .eq('id', id)
       .single()
 
     if (fetchError) {
@@ -96,7 +98,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     const { data, error } = await supabaseAdmin
       .from('blog_posts')
       .update(dbUpdates)
-      .eq('id', params.id)
+      .eq('id', id)
       .select()
       .single()
 
@@ -125,13 +127,14 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params
     // Check if post exists
     const { data: existingPost, error: fetchError } = await supabaseAdmin
       .from('blog_posts')
       .select('*')
-      .eq('id', params.id)
+      .eq('id', id)
       .single()
 
     if (fetchError) {
@@ -144,7 +147,7 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
     const { error } = await supabaseAdmin
       .from('blog_posts')
       .delete()
-      .eq('id', params.id)
+      .eq('id', id)
 
     if (error) throw error
 

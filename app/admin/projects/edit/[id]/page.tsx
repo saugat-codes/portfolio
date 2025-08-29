@@ -2,8 +2,8 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect, useCallback } from "react"
+import { useRouter, useParams } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -16,8 +16,10 @@ import { X, Plus } from "lucide-react"
 import type { Project } from "@/lib/types"
 import ImageUpload from "@/components/image-upload"
 
-export default function EditProject({ params }: { params: { id: string } }) {
+export default function EditProject() {
   const router = useRouter()
+  const params = useParams()
+  const id = params.id as string
   const [loading, setLoading] = useState(false)
   const [initialLoading, setInitialLoading] = useState(true)
   const [techInput, setTechInput] = useState("")
@@ -32,13 +34,9 @@ export default function EditProject({ params }: { params: { id: string } }) {
     featured: false,
   })
 
-  useEffect(() => {
-    fetchProject()
-  }, [params.id])
-
-  const fetchProject = async () => {
+  const fetchProject = useCallback(async () => {
     try {
-      const response = await fetch(`/api/projects/${params.id}`)
+      const response = await fetch(`/api/projects/${id}`)
       if (response.ok) {
         const project: Project = await response.json()
         setFormData({
@@ -61,14 +59,20 @@ export default function EditProject({ params }: { params: { id: string } }) {
     } finally {
       setInitialLoading(false)
     }
-  }
+  }, [id, router])
+
+  useEffect(() => {
+    if (id) {
+      fetchProject()
+    }
+  }, [id, fetchProject])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
 
     try {
-      const response = await fetch(`/api/projects/${params.id}`, {
+      const response = await fetch(`/api/projects/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

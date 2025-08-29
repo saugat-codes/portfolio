@@ -4,7 +4,6 @@ import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 import { Orbitron } from "next/font/google"
 import "./globals.css"
-import PingInitializer from "../components/ping-initializer"
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -25,7 +24,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} ${orbitron.variable}`}>
-        <PingInitializer />
         {children}
       </body>
     </html>
